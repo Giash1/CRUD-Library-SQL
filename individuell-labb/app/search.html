@@ -5,46 +5,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/styles.css"> <!-- HÄMTA CSS-fil -->
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>App > Sök</h1>
+    <h1>App > Search</h1>
 
-    <!-- Sökformulär -->
+
     <div class="search-active">
         <br>
         <input id="keyword" type="text" />
         <br>
-        <button id="search">Sök</button>
+        <button id="search">Search</button>
     </div>
-
-    <!-- Sökresultat -->
     <ul id="searchResults">
     </ul>
-
-    <!-- Redigeringsformulär -->
     <div class="update-inactive">
 
-        <input id="customerId" type="hidden" name="customerId" />
+        <input id="bookId" type="hidden" name="bookId" />
 
-        <label for="firstName">Förnamn</label>
-        <input id="firstName" type="text" name="firstName" autofocus />
+        <label for="title">title</label>
+        <input id="title" type="text" name="title" autofocus />
 
-        <label for="lastName">Efternamn</label>
-        <input id="lastName" type="text" name="lastName" />
+        <label for="year">year</label>
+        <input id="year" type="number" name="year" />
 
-        <label for="email">E-mail</label>
-        <input id="email" type="text" name="email" />
-
-        <br>
-
-        <!-- UPDATE -->
-        <button id="btnUpdate" type="submit">Spara</button>
+        <label for="catagory">catagory</label>
+        <input id="catagory" type="text" name="catagory" />
 
         <br>
 
-        <!-- DELETE -->
-        <button id="btnDelete" class="button-delete" type="submit">Radera</button>
+        <button id="btnUpdate" type="submit">Save</button>
+
+        <br>
+
+
+        <button id="btnDelete" class="button-delete" type="submit">delete</button>
     </div>
 
     <script>
@@ -58,41 +53,41 @@
             printResults();
         });
 
-        // KNAPP: Update
+
         btnUpdate.addEventListener('click', () => {
 
-            let customerId = document.querySelector('#customerId');
-            let firstName = document.querySelector('#firstName');
-            let lastName = document.querySelector('#lastName');
-            let email = document.querySelector('#email');
+            let bookId = document.querySelector('#bookId');
+            let title = document.querySelector('#title');
+            let year = document.querySelector('#year');
+            let catagory = document.querySelector('#catagory');
 
             const options = {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ customerId: customerId.value, firstName: firstName.value, lastName: lastName.value, email: email.value })
+                body: JSON.stringify({ bookId: bookId.value, title: title.value, year: year.value, catagory: catagory.value })
             }
 
-            fetch('http://localhost:3001/customer/edit', options)
+            fetch('http://localhost:3001/book/edit', options)
             .then(response => console.log(response))
             .catch(error => console.error(error));
         })
 
-        // KNAPP: Delete
+
         btnDelete.addEventListener('click', () => {
 
-            let customerId = document.querySelector('#customerId');
+            let bookId = document.querySelector('#bookId');
 
             const options = {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ customerId: customerId.value })
+                body: JSON.stringify({ bookId: bookId.value })
             }
 
-            fetch('http://localhost:3001/customer/remove', options)
+            fetch('http://localhost:3001/book/remove', options)
             .then(response => console.log(response))
             .catch(error => console.error(error));
         })
@@ -103,21 +98,20 @@
 
             let data = await getResultsByKeyword();
 
-            for (const customer of data) {
+            for (const book of data) {
 
                 let li = document.createElement('li');
                 let a = document.createElement('a');
 
-                a.id = customer.customerId;
-                a.innerText = customer.firstName;
+                a.id = book.bookId;
+                a.innerText = book.title;
                 a.addEventListener('click', () => {
 
                     ul.innerHTML = '';
 
-                    // Fyll i redigeringsformuläret
-                    setCurrentCustomer(customer.customerId, customer.firstName, customer.lastName, customer.email);
 
-                    // Visar redigeringsformuläret
+                    setCurrentBook(book.bookId, book.title, book.year, book.catagory);
+
                     displayUpdate();
                 })
 
@@ -126,25 +120,25 @@
             }
         }
 
-        function setCurrentCustomer(customerId, firstName, lastName, email) {
-            document.querySelector('#customerId').value = customerId;
-            document.querySelector('#firstName').value = firstName;
-            document.querySelector('#lastName').value = lastName;
-            document.querySelector('#email').value = email;
+        function setCurrentBook(bookId, title, year, catagory) {
+            document.querySelector('#bookId').value = bookId;
+            document.querySelector('#title').value = title;
+            document.querySelector('#year').value = year;
+            document.querySelector('#catagory').value = catagory;
         }
 
         function displayUpdate() {
 
-            // Döljer sökformuläret
+            // Deactive the search
             var search = document.querySelector('.search-active');
             search.className = 'search-inactive';
 
-            // Visar redigeringsformuläret
+            // show the update formula
             var update = document.querySelector('.update-inactive');
             update.className = 'update-active';
         }
 
-        // Hämtar data baserat på sökord
+        // bring the result by keyword
         async function getResultsByKeyword() {
 
             let keyword = document.querySelector('#keyword').value;
@@ -155,7 +149,7 @@
                 'Accept': 'application/json'
             }}
 
-            let response = await fetch('http://localhost:3001/customer/search?' + new URLSearchParams({
+            let response = await fetch('http://localhost:3001/book/search?' + new URLSearchParams({
                 keyword: keyword
             }), options)
             .catch(error => {

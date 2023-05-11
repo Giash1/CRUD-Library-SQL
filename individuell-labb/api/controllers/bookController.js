@@ -38,7 +38,7 @@ try {
 
 async function edit(req, res) {
 try{
-    await editBook(req.body.bookId, req.body.title, req.body.ctgory, req.body.year);
+    await editBook(req.body.bookId, req.body.title, req.body.catagory, req.body.year);
 
     res.sendStatus(200);
 

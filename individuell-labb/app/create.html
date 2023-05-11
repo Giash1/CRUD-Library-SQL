@@ -10,21 +10,24 @@
 <body>
     <h1>App > Create</h1>
 
-    <label for="firstName">Förnamn</label>
-    <input id="firstName" type="text" name="firstName" autofocus/>
+    <label for="title">title</label>
+    <input id="title" type="text" name="title" autofocus/>
 
-    <label for="lastName">Efternamn</label>
-    <input id="lastName" type="text" name="lastName" />
+    <label for="year">year</label>
+    <input id="year" type="number" name="year" />
+    <label for="catagory">catagory</label>
+    <input id="catagory" type="text" name="catagory" />
 
     <br>
 
-    <button id="btnSave" class="button-save" type="submit">Spara</button>
+    <button id="btnSave" class="button-save" type="submit">Save</button>
 
     <script>
 
         var btnSave = document.querySelector('#btnSave')
-        var firstName = document.querySelector('#firstName')
-        var lastName = document.querySelector('#lastName');
+        var title = document.querySelector('#title')
+        var year = document.querySelector('#year');
+        var catagory = document.querySelector('#catagory');
 
         btnSave.addEventListener('click', () => {
 
@@ -33,9 +36,9 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ firstName: firstName.value, lastName: lastName.value })
+                body: JSON.stringify({ title: title.value, year: year.value, catagory:catagory.value })
             };
-            fetch('http://localhost:3001/customer/add', options)
+            fetch('http://localhost:3001/book/add', options)
             .then(response => console.log(response))
             .catch(error => {
                 console.error(error);

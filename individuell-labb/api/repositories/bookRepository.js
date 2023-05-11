@@ -1,20 +1,25 @@
 const bookModel = require("../models/bookModel");
 const individual_db = require("../individual_db");
 
+
+
 async function getAllBooks() {
+    try {
+        let books = [];
+        let data = await individual_db.selectAllBooks()
+        data.forEach(book => {
+            books.push(new bookModel(book.title, book.catagory, book.year))
+        });
+        return books;
+    } catch (error) {
+        console.error(error);
+        // handle the error here, such as logging it or returning an error response
+    }
+}
 
-    let books = [];
-
-    let data = await individual_db.selectAllBooks()
-
-    data.forEach(book => {
-        books.push(new bookModel(book.title, book.catagory, book.year))
-    });
-
-    return books;
-};
 
 async function getBookByKeyword(keyword) {
+try {
 
     let books = [];
 
@@ -25,7 +30,12 @@ async function getBookByKeyword(keyword) {
     });
 
     return books;
+
+} catch (error) {
+    console.error(error);
 };
+
+}
 
 async function addBook(title, year, catagory) {
 

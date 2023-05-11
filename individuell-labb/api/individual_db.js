@@ -10,13 +10,13 @@ async function selectAllBooks() {
 
 async function insertBook(title, catagory, year) {
 
-  await db.none(`INSERT INTO book (authorId, title, year, catagory)` +
+  await db.none(`INSERT INTO book (bookId, title, year, catagory)` +
                 `VALUES (1,'${title}','${year}', '${catagory}')`);
 }
 
-async function updateBook(authorId, title, year, catagory) {
+async function updateBook(bookId, title, year, catagory) {
 
-  await db.none(`UPDATE book SET authorId = '${authorId}', year = '${year}', catagory = '${catagory}' WHERE book_id = ${bookId}`);
+  await db.none(`UPDATE book SET bookId = '${bookId}',title = '${title}', year = '${year}', catagory = '${catagory}' WHERE book_id = ${bookId}`);
 }
 
 async function selectBookByKeyword(keyword) {
@@ -41,6 +41,7 @@ async function deleteBook(bookId) {
 module.exports = {
     selectAllBooks,
     selectBookByKeyword,
+    selectAllloanbooks,
     insertBook,
     updateBook,
     deleteBook

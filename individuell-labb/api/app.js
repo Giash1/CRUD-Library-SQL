@@ -12,6 +12,6 @@ app.use(express.json());
 const bookRouter = require('./routes/book');
 app.use('/book', bookRouter);
 
-app.listen(PORT, () => { // LYSSNA på port
-    console.log('API - Listening on port*:' + PORT);
+app.listen(PORT, () => {
+    console.log('Listening on port*:' + PORT);
 });
