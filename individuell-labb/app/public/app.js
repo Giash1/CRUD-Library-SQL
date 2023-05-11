@@ -1,26 +1,23 @@
-const express = require('express'); // KRÄV express
+const express = require('express');
 
-const app = express(); // SKAPA en express-applikation
+const app = express();
 
-const http = require('http'); // KRÄV http (node)
+const http = require('http');
+const server = http.createServer(app);
 
-const server = http.createServer(app); // SKAPA server av typen Express
+const { Server } = require("socket.io");
 
-const { Server } = require("socket.io"); // KRÄV Socket.io-biblioteket och klassen Server
-//      ^----^ Klass
 
-const io = new Server(server); // INKLUDERA Socket.io
-//         ^--------^ Ny instans av Server-klassen
+const io = new Server(server);
+app.use(express.static('public'));  middleware
 
-app.use(express.static('public')); // ANVÄND middleware för statiska filer
+const PORT = 3000;
 
-const PORT = 3000; // DEFINIERA portnummer
-
-server.listen(PORT, () => { // LYSSNA på port
+server.listen(PORT, () => {
     console.log('Chat app - Listening on port*:' + PORT);
 });
 
-app.get('/', (req, res) => { // HANTERA GET-request
+app.get('/', (req, res) => { 
 
     res.sendFile(__dirname + '/index.html'); // SKICKA fil
 });
