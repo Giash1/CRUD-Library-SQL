@@ -10,13 +10,13 @@ async function selectAllBooks() {
 
 async function insertBook(title, catagory, year) {
 
-  await db.none(`INSERT INTO book (book_id, title, year, catagory)` +
-                `VALUES (1,'${title}','${year}', '${catagory}')`);
+  await db.none(`INSERT INTO book ( title, year, catagory)` +
+                `VALUES ('${title}','${year}', '${catagory}')`);
 }
 
 async function updateBook(bookId, title, year, catagory) {
 
-  await db.none(`UPDATE book SET book_id = '${bookId}', title = '${title}', year = '${year}', catagory = '${catagory}' WHERE book_id = ${bookId}`);
+  await db.none(`UPDATE book SET title = '${title}', year = '${year}', catagory = '${catagory}' WHERE book_id = ${bookId}`);
 }
 
 async function selectBookByKeyword(keyword) {

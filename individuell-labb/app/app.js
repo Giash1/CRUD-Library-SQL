@@ -9,7 +9,7 @@ const { Server } = require("socket.io");
 
 
 const io = new Server(server);
-app.use(express.static('public'));  middleware
+app.use(express.static('public'));  
 
 const PORT = 3000;
 
@@ -17,7 +17,7 @@ server.listen(PORT, () => {
     console.log('Chat app - Listening on port*:' + PORT);
 });
 
-app.get('/', (req, res) => { 
+app.get('/', (req, res) => {
 
     res.sendFile(__dirname + '/index.html'); // SKICKA fil
 });

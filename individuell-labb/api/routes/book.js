@@ -17,6 +17,7 @@ router.get("/search", async (req, res) => {
 router.post("/add", async (req, res) => {
 
     await controller.add(req, res);
+    console.log(req.body)
 });
 
 router.put("/edit", async (req, res) => {
