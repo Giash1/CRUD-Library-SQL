@@ -6,15 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/socket.io/socket.io.js"></script>
     <script src="/chat.js" defer></script>
-    <link rel="stylesheet" href="/styles.css">
+    <!-- <link rel="stylesheet" href="/styles.css"> -->
     <title>Document</title>
 </head>
 <body>
     <h1>App > Chatt</h1>
     <div class="chat-message-box">
     </div>
-
+    <label for="chattId">Chatt</label>
     <input class="chat-input" type="text" id="input">
-    <button id="send" class="chat-button-send">Send</button>
+    <button id="btnChatt" class="btnChatt">Send</button>
+    <script>
+
+        var btnChatt = document.querySelector('#btnChatt')
+
+        btnChatt.addEventListener('click', () => {
+
+            const options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ bookId: bookId.value, title: title.value, catagory:catagory.value, year:year.value})
+
+            };
+            fetch('http://localhost:3001/book/edit', options)
+            .then(response => console.log(response))
+            .catch(error => {
+                console.error(error);
+            });
+        });
+</script>
+
 </body>
 </html>

@@ -9,7 +9,7 @@ const { Server } = require("socket.io");
 
 
 const io = new Server(server);
-app.use(express.static('public'));  
+app.use(express.static('public'));
 
 const PORT = 3000;
 
@@ -22,9 +22,9 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html'); // SKICKA fil
 });
 
-app.get('/chat', (req, res) => { // HANTERA GET-request
+app.get('/chatt', (req, res) => { // HANTERA GET-request
 
-  res.sendFile(__dirname + '/chat.html'); // SKICKA fil
+  res.sendFile(__dirname + '/chatt.html'); // SKICKA fil
 });
 
 app.get('/create', (req, res) => { // HANTERA GET-request

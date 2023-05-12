@@ -4,23 +4,17 @@ const individual_db = require("../individual_db");
 
 
 async function getAllBooks() {
-    try {
+
         let books = [];
         let data = await individual_db.selectAllBooks()
         data.forEach(book => {
             books.push(new bookModel(book.title, book.catagory, book.year))
         });
         return books;
-    } catch (error) {
-        console.error(error);
-        // handle the error here, such as logging it or returning an error response
-    }
 }
 
 
 async function getBookByKeyword(keyword) {
-try {
-
     let books = [];
 
     let data = await individual_db.selectBookByKeyword(keyword)
@@ -31,9 +25,6 @@ try {
 
     return books;
 
-} catch (error) {
-    console.error(error);
-};
 
 }
 
