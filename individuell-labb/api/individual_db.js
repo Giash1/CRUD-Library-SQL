@@ -10,8 +10,9 @@ async function selectAllBooks() {
 
 async function insertBook(title, catagory, year) {
 
-  await db.none(`INSERT INTO book ( title, year, catagory)` +
-                `VALUES ('${title}','${year}', '${catagory}')`);
+  console.log(title,catagory,year)
+  await db.none(`INSERT INTO book (title, catagory, year)` +
+                `VALUES ('${title}','${catagory}', ${year})`);
 }
 
 async function updateBook(bookId, title, year, catagory) {

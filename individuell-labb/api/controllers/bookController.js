@@ -6,7 +6,7 @@ async function get(req, res) {
         let data = await getAllBooks();
 
         return res.json(data);
-    
+
 }
 
 async function search(req, res) {
@@ -22,10 +22,9 @@ async function search(req, res) {
 
 async function add(req, res) {
 
-    await addBook(req.body.title, req.body.catagory, '');
+    await addBook(req.body.title, req.body.catagory, req.body.year);
 
     res.sendStatus(200);
-
 }
 
 
