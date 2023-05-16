@@ -19,49 +19,49 @@ server.listen(PORT, () => {
 
 app.get('/', (req, res) => {
 
-    res.sendFile(__dirname + '/index.html'); // SKICKA fil
+    res.sendFile(__dirname + '/index.html'); // send file
 });
 
-app.get('/chatt', (req, res) => { // HANTERA GET-request
+app.get('/chatt', (req, res) => {
 
-  res.sendFile(__dirname + '/chatt.html'); // SKICKA fil
+  res.sendFile(__dirname + '/chatt.html');
 });
 
-app.get('/create', (req, res) => { // HANTERA GET-request
+app.get('/create', (req, res) => {
 
-  res.sendFile(__dirname + '/create.html'); // SKICKA fil
+  res.sendFile(__dirname + '/create.html');
 });
 
-app.get('/search', (req, res) => { // HANTERA GET-request
+app.get('/search', (req, res) => {
 
-  res.sendFile(__dirname + '/search.html'); // SKICKA fil
+  res.sendFile(__dirname + '/search.html');
 });
 
-app.get('/delete', (req, res) => { // HANTERA GET-request
+app.get('/delete', (req, res) => {
 
-  res.sendFile(__dirname + '/delete.html'); // SKICKA fil
+  res.sendFile(__dirname + '/delete.html');
 });
 
-app.get('/update', (req, res) => { // HANTERA GET-request
+app.get('/update', (req, res) => {
 
-  res.sendFile(__dirname + '/update.html'); // SKICKA fil
+  res.sendFile(__dirname + '/update.html');
 });
 
 // Read
-app.get('/read', (req, res) => { // HANTERA GET-request
+app.get('/read', (req, res) => {
 
-  res.sendFile(__dirname + '/read.html'); // SKICKA fil
+  res.sendFile(__dirname + '/read.html');
 });
 
 const mainRoom = "main room";
 const waitingRoom = "waiting room";
 let peopleInMainRoom = 0;
 
-io.on('connection', (socket) => { // PÅ händelsen connection | NIVÅ: I/O (input/output)
+io.on('connection', (socket) => { //  I/O (input/output)
 
-  peopleInMainRoom++; // ÖKA antalet personer i main room med 1
+  peopleInMainRoom++; // increase the person in the main room by one
 
-  if(peopleInMainRoom <= 2) { // OM antalet personer i main room är mindre eller lika med 2, gör följande
+  if(peopleInMainRoom <= 2) { // If the total person in the main room is less than 2 or the equal
 
     socket.join(mainRoom);
 
@@ -69,19 +69,19 @@ io.on('connection', (socket) => { // PÅ händelsen connection | NIVÅ: I/O (inp
 
     console.log("People in main room: " + peopleInMainRoom);
   }
-  else { // ANNARS, gör följande
+  else {
     socket.join(waitingRoom);
     socket.emit('server message', 'Välkommen till väntrummet ')
     socket.emit('server message', 'Du är placerad i kö...')
   }
 
-  socket.on('disconnect', () => { // PÅ händelsen disconnect | NIVÅ: SOCKET (anslutning)
+  socket.on('disconnect', () => { // disconnect | SOCKET (finishing)
     console.log('A user disconnected');
-    peopleInMainRoom--; // MINSKA antalet personer i main room med 1
+    peopleInMainRoom--; // decrease the person by 1
   });
 
   socket.on('chat message', (message) => {
 
-    io.to(mainRoom).emit('chat message', message); // YTTRA (skicka) händelsen chat message till main room
+    io.to(mainRoom).emit('chat message', message); // send the matters to the main room
   })
 });
