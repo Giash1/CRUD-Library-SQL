@@ -1,5 +1,5 @@
 const pgp = require('pg-promise')(/* options */)
-const db = pgp('postgres://postgres:Pg@967061@localhost:5432/individual_db')
+const db = pgp('postgres://postgres:Pg@967061@localhost:8000/individual_db')
 
 async function selectAllBooks() {
 
@@ -8,17 +8,22 @@ async function selectAllBooks() {
   return data;
 }
 
-async function insertBook(title, catagory, year) {
+async function insertBook(title, category, year) {
+    await db.none('INSERT INTO book (title, category, year) VALUES ($1, $2, $3)', [
+      title,
+      category,
+      year
+    ]);
+  }
 
-  console.log(title,catagory,year)
-  await db.none(`INSERT INTO book (title, catagory, year)` +
-                `VALUES ('${title}','${catagory}', ${year})`);
-}
+  async function updateBook(bookId, title, category, year) {
+    await db.none(
+      'UPDATE book SET title = $2, catagory = $3, year = $4 WHERE book_id = $1',
+      [bookId, title, category, year]
+    );
+  }
 
-async function updateBook(bookId, title, year, catagory) {
 
-  await db.none(`UPDATE book SET title = '${title}', year = '${year}', catagory = '${catagory}' WHERE book_id = ${bookId}`);
-}
 
 async function selectBookByKeyword(keyword) {
 

@@ -16,11 +16,11 @@
     <label for="title">title</label>
     <input id="title" type="text" name="title" />
 
-    <label for="year">year</label>
-    <input id="year" type="number" name="year" />
-
     <label for="catagory">catagory</label>
     <input id="catagory" type="text" name="catagory" />
+    
+    <label for="year">year</label>
+    <input id="year" type="number" name="year" />
 
     <br>
 
@@ -31,8 +31,8 @@
         var btnSave = document.querySelector('#btnSave')
         var bookId = document.querySelector('#bookId')
         var title = document.querySelector('#title')
-        var year = document.querySelector('#year');
         var catagory = document.querySelector('#catagory');
+        var year = document.querySelector('#year');
 
         btnSave.addEventListener('click', () => {
 
@@ -41,7 +41,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ bookId: bookId.value, title: title.value, year: year.value, catagory: catagory.value })
+                body: JSON.stringify({ bookId: bookId.value, title: title.value,  catagory: catagory.value, year: year.value, })
             };
             fetch('http://localhost:3001/book/edit', options)
             .then(response => console.log(response))

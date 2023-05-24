@@ -12,11 +12,13 @@
 
     <label for="title">title</label>
     <input id="title" type="text" name="title" autofocus/>
+    
+    <label for="catagory">catagory</label>
+    <input id="catagory" type="text" name="catagory" />
 
     <label for="year">year</label>
     <input id="year" type="number" name="year" />
-    <label for="catagory">catagory</label>
-    <input id="catagory" type="text" name="catagory" />
+
 
     <br>
 
@@ -36,7 +38,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ title: title.value, year: year.value, catagory:catagory.value })
+                body: JSON.stringify({ title: title.value, catagory:catagory.value, year: year.value, })
             };
             fetch('http://localhost:3001/book/add', options)
             .then(response => console.log(response))

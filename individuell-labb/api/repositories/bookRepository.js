@@ -28,15 +28,14 @@ async function getBookByKeyword(keyword) {
 
 }
 
-async function addBook(title, year, catagory) {
+async function addBook(title, catagory, year) {
 
-    individual_db.insertBook(title, year, catagory);
+    individual_db.insertBook(title, catagory, year);
 };
 
-async function editBook(bookId, title, year, catagory) {
-
-    individual_db.updateBook(bookId, title, year, catagory);
-};
+async function editBook(bookId, title, catagory, year) {
+    await individual_db.updateBook(bookId, title, catagory, year);
+  }
 
 async function deleteBook(bookId) {
 

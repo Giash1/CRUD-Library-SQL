@@ -1,4 +1,9 @@
-const { getAllBooks, addBook, getBookByKeyword, editBook, deleteBook } = require("../repositories/bookRepository" );
+const repositories = require('../repositories/bookRepository');
+
+// Rest of the code
+
+const { getAllBooks, addBook, getBookByKeyword, editBook, deleteBook } = require("../repositories/bookRepository");
+
 
 async function get(req, res) {
 
@@ -29,19 +34,23 @@ async function add(req, res) {
 
 
 async function edit(req, res) {
-
-    await editBook(req.body.bookId, req.body.title, req.body.catagory, req.body.year);
-
+    await repositories.editBook(
+      req.body.bookId,
+      req.body.title,
+      req.body.catagory,
+      req.body.year
+    );
     res.sendStatus(200);
-
-}
-
+  }
 
 
 
-async function remove(req, res) {
+
+
+async function remove(req,res) {
 
     await deleteBook(req.body.bookId);
+    res.sendStatus(200);
 }
 
 
